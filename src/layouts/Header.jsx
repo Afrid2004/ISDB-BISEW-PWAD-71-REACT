@@ -2,7 +2,7 @@ function Header() {
   return (
     <>
       <div>
-        <h1>THis is a header.</h1>
+        <h3>THis is a header.</h3>
       </div>
     </>
   );

@@ -2,7 +2,7 @@ function Sidebar() {
   return (
     <>
       <div>
-        <h1>THis is a Sidebar.</h1>
+        <h3>THis is a Sidebar.</h3>
       </div>
     </>
   );
