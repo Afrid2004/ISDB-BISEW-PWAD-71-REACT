@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Services from "./pages/Services";
 import HomeLayout from "./layouts/HomeLayout";
+import Users from "./pages/Users";
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
           {/* home layout pages  */}
           <Route path="/" element={<HomeLayout />}>
             <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
+            <Route path="/users" element={< Users />} />
             <Route path="/services" element={<Services />} />
           </Route>
         </Routes>

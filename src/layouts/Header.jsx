@@ -1,8 +1,11 @@
+import { Link } from "react-router-dom";
+import NavbarMenu from "./Navbar";
+
 function Header() {
   return (
     <>
-      <div>
-        <h3>THis is a header.</h3>
+      <div className="border-bottom border-1 border-secondary-subtle">
+        <NavbarMenu></NavbarMenu>
       </div>
     </>
   );
