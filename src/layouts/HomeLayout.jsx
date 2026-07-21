@@ -10,11 +10,15 @@ const HomeLayout = () => {
             <Header />
             <div className='container'>
                 <div className='row min-vh-100'>
-                    <div className='col-lg-3 sticky-top align-self-start border-end border-1 border-secondary-subtle pt-2 pe-2'>
-                        <Sidebar />
+                    <div className='col-lg-3 sticky-top align-self-start'>
+                        <div className='border-end border-1 border-dark pt-2 pe-2'>
+                            <Sidebar />
+                        </div>
                     </div>
-                    <div className='col-lg-9 p-2'>
-                        <Outlet />
+                    <div className='col-lg-9'>
+                        <div className='p-2'>
+                            <Outlet></Outlet>
+                        </div>
                     </div>
                 </div>
             </div>

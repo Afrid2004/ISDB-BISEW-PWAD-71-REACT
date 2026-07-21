@@ -1,10 +1,26 @@
+import { Spinner } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
+import Alert from 'react-bootstrap/Alert';
 
-function UserTable({ users }) {
+function UserTable({ users, loading }) {
     const allUsers = users.users || [];
+    if (loading) {
+        return (
+            <div className="text-center py-5">
+                <Spinner animation="border" />
+            </div>
+        );
+    }
+    if (allUsers.length === 0) {
+        return (
+            <Alert variant="warning" className="text-center">
+                No Data Found!
+            </Alert>
+        );
+    }
     return (
         <div>
-            <Table responsive striped bordered hover>
+            <Table responsive striped bordered hover variant="dark">
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -19,7 +35,7 @@ function UserTable({ users }) {
                     {
                         allUsers.map((user, index) => {
                             return (
-                                <tr key={index}>
+                                <tr key={user.id}>
                                     <td>{index + 1}</td>
                                     <td>
                                         <div className='d-flex align-items-center gap-2'>

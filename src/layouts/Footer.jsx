@@ -1,8 +1,8 @@
 function Footer() {
   return (
     <>
-      <div>
-        <h3>THis is a footer.</h3>
+      <div className="container">
+        <h3 >THis is a footer.</h3>
       </div>
     </>
   );
