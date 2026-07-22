@@ -1,7 +1,7 @@
 function Footer() {
   return (
     <>
-      <div className="container">
+      <div>
         <h3 >THis is a footer.</h3>
       </div>
     </>

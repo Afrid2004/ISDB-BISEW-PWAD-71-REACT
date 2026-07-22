@@ -8,14 +8,14 @@ const NavbarMenu = () => {
   return (
     <Navbar collapseOnSelect expand="lg" className="bg-black">
       <Container>
-        <Navbar.Brand href="#home">
+        <Navbar.Brand as={Link} to={"/"}>
             <h2 className='text-white'>React Tutorial</h2>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ms-auto">
             <Nav.Link className='text-light' as={Link} to="/" >Home</Nav.Link>
-            <Nav.Link className='text-light' as={Link} to="/users">Users</Nav.Link>
+            <Nav.Link className='text-light' as={Link} to="/about">About</Nav.Link>
             <Nav.Link className='text-light' as={Link} to="/services">Services</Nav.Link>
             {/* <NavDropdown title="Dropdown" id="collapsible-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
