@@ -9,6 +9,9 @@ import About from "./pages/About";
 import Services from "./pages/Services";
 import HomeLayout from "./layouts/HomeLayout";
 import Users from "./pages/Users";
+import Customers from "./pages/Customers";
+import CustomerEdit from "./pages/CustomerEdit";
+import CustomerCreate from "./pages/CustomerCreate";
 
 function App() {
   return (
@@ -18,9 +21,12 @@ function App() {
           {/* home layout pages  */}
           <Route path="/" element={<HomeLayout />}>
             <Route path="/" element={<Home />} />
-            <Route path="/users" element={< Users />} />
-            <Route path="/about" element={< About />} />
+            <Route path="/users" element={<Users />} />
+            <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
+            <Route path="/customers" element={<Customers />} />
+            <Route path="/customers/edit/:id" element={<CustomerEdit />} />
+            <Route path="/customers/create" element={<CustomerCreate />} />
           </Route>
         </Routes>
       </BrowserRouter>

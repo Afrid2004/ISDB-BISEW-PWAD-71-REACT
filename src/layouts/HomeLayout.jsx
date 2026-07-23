@@ -23,10 +23,10 @@ const HomeLayout = () => {
             <div className="col-lg-9 overflow-y-scroll h-100 scrollbar">
               <div className="p-2">
                 <Outlet></Outlet>
-
                 <Footer />
               </div>
             </div>
+            
           </div>
         </div>
       </div>
