@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import CustomerTable from "../components/CustomerTable";
 import { Link } from "react-router-dom";
+import BreadCrums from "../components/BreadCrums";
 
 const Customers = () => {
   const [customers, setCustomers] = useState([]);
@@ -22,16 +23,21 @@ const Customers = () => {
   useEffect(() => {
     fetchUsers();
   }, []);
-
-  console.log(customers)
   return (
     <>
       <div>
         <div className="mb-3 d-flex align-items-center gap-3 justify-content-between">
-            <h3 >All Cutomers</h3>
-            <Link className="btn btn-success" to={"/customers/create"}>Create New</Link>
+          <div>
+            <h3>All Cutomers</h3>
+            <small className="text-gray text-capitalize">
+              <BreadCrums ></BreadCrums>
+            </small>
+          </div>
+          <Link className="btn btn-success" to={"/customers/create"}>
+            Create New
+          </Link>
         </div>
-        <CustomerTable customers={customers} loading={loading}></CustomerTable>
+        <CustomerTable customers={customers} setCustomers={setCustomers} loading={loading}></CustomerTable>
       </div>
     </>
   );

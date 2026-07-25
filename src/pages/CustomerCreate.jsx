@@ -1,10 +1,14 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Card, Row, Col, Form, Button, Image } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import BreadCrums from "../components/BreadCrums";
 
 const CustomerCreate = () => {
   const [preview, setPreview] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const BASE_URL = import.meta.env.VITE_API_PHP_BASE_URL;
   const IMGBB_KEY = import.meta.env.VITE_IMAGE_BB_API_KEY;
   const [customer, setCustomer] = useState({
@@ -32,45 +36,70 @@ const CustomerCreate = () => {
       [name]: value,
     }));
   };
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
 
-  try {
-    // Upload image
-    const imageData = new FormData();
-    imageData.append("image", customer.photo);
+    try {
+      // Upload image
+      let imageUrl = null;
+      if (customer.photo) {
+        const imageData = new FormData();
+        imageData.append("image", customer.photo);
 
-    const imgRes = await axios.post(
-      `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_BB_API_KEY}`,
-      imageData
-    );
+        const imgRes = await axios.post(
+          `https://api.imgbb.com/1/upload?key=${IMGBB_KEY}`,
+          imageData,
+        );
 
-    const imageUrl = imgRes.data.data.url;
+        imageUrl = imgRes.data.data.url;
+      }
 
-    // Customer data
-    const customerData = {
-      name: customer.name,
-      email: customer.email,
-      mobile: customer.mobile,
-      address: customer.address,
-      photo: imageUrl,
-    };
+      // Customer data
+      const customerData = {
+        name: customer.name,
+        email: customer.email,
+        mobile: customer.mobile,
+        address: customer.address,
+        photo: imageUrl,
+      };
 
-    const res = await axios.post(
-      `${BASE_URL}/customer/create`,
-      customerData
-    );
+      const res = await axios.post(`${BASE_URL}/customer/create`, customerData);
 
-    if (res.data.success) {
-      alert(res.data.message);
-    } else {
-      alert(res.data.message);
+      if (res.data.success) {
+        await Swal.fire({
+          title: "Success!",
+          text: `${res.data.message}`,
+          icon: "success",
+        });
+
+        setCustomer({
+          name: "",
+          email: "",
+          mobile: "",
+          address: "",
+          photo: null,
+        });
+        setPreview(null);
+        navigate("/customers", { replace: true });
+      } else {
+        await Swal.fire({
+          title: "Error!",
+          text: `${res.data.message}`,
+          icon: "error",
+        });
+      }
+    } catch (err) {
+      await Swal.fire({
+        title: "Error!",
+        text:
+          err.response?.data?.message || err.message || "Something went wrong!",
+        icon: "error",
+      });
+    } finally {
+      setLoading(false);
     }
-  } catch (err) {
-    console.log(err);
-    alert("Something went wrong!");
-  }
-};
+  };
 
   return (
     <div className="container-fluid py-4">
@@ -78,7 +107,9 @@ const handleSubmit = async (e) => {
       <div className="d-flex justify-content-between align-items-center mb-4">
         <div>
           <h3 className="fw-bold mb-1">Create Customer</h3>
-          <small className="text-gray">Home / Customers / Create</small>
+          <small className="text-gray text-capitalize">
+            <BreadCrums></BreadCrums>
+          </small>
         </div>
 
         <Link to="/customers" className="btn btn-dark">
@@ -183,8 +214,8 @@ const handleSubmit = async (e) => {
                 Cancel
               </Link>
 
-              <Button type="submit" variant="primary">
-                Save Customer
+              <Button disabled={loading} type="submit" variant="primary">
+                {loading ? "Saving..." : "Save Customer"}
               </Button>
             </div>
           </Form>

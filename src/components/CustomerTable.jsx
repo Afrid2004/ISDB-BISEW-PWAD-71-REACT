@@ -2,9 +2,12 @@ import { Spinner } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import Alert from "react-bootstrap/Alert";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import axios from "axios";
 
-function CustomerTable({ customers, loading }) {
+function CustomerTable({ customers, loading, setCustomers }) {
   const allCustomers = customers.data || [];
+  const BASE_URL = import.meta.env.VITE_API_PHP_BASE_URL;
   if (loading) {
     return (
       <div className="text-center py-5">
@@ -19,6 +22,55 @@ function CustomerTable({ customers, loading }) {
       </Alert>
     );
   }
+
+  const handleDelete = async (id) => {
+    await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#212529",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete user!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const res = await axios.delete(
+            `${BASE_URL}/customer/delete?id=${id}`,
+          );
+          const data = await res.data;
+          if (data.success) {
+            await Swal.fire({
+              title: "Deleted!",
+              text: `${data.message}`,
+              icon: "success",
+            });
+            // refresh data 
+            setCustomers((prev) => ({
+              ...prev,
+              data: prev.data.filter((item) => item.id !== id),
+            }));
+          } else {
+            await Swal.fire({
+              title: "Failed!",
+              text: `${data.message}`,
+              icon: "error",
+            });
+          }
+        } catch (error) {
+          Swal.fire({
+            title: "Error!",
+            text:
+              error.response?.data?.message ||
+              error.message ||
+              "Something went wrong!",
+            icon: "error",
+          });
+        }
+      }
+    });
+  };
+
   return (
     <div>
       <Table responsive striped bordered hover variant="dark">
@@ -41,9 +93,9 @@ function CustomerTable({ customers, loading }) {
                   <div className="d-flex align-items-center gap-2">
                     {customer.photo ? (
                       <img
-                        className=" object-fit-cover rounded-circle border border-light-subtle"
-                        width={20}
-                        height={20}
+                        className="flex-shrink-0 object-fit-cover rounded-circle border border-light-subtle"
+                        width={40}
+                        height={40}
                         src={customer.photo}
                         alt={customer.name}
                       />
@@ -64,7 +116,12 @@ function CustomerTable({ customers, loading }) {
                     >
                       Edit
                     </Link>
-                    <button className="btn btn-danger">Delete</button>
+                    <button
+                      onClick={() => handleDelete(customer.id)}
+                      className="btn btn-danger"
+                    >
+                      Delete
+                    </button>
                   </div>
                 </td>
               </tr>
