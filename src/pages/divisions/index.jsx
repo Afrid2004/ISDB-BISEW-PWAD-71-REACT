@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import DivisionTable from "../../components/DivisionTable";
 import BreadCrums from "../../components/BreadCrums";
+import { FiPlus } from "react-icons/fi";
 
 const Division = () => {
   const BASE_URL = import.meta.env.VITE_API_PHP_BASE_URL;
@@ -38,7 +39,7 @@ const Division = () => {
             </small>
           </div>
           <Link className="btn btn-success" to={"/divisions/create"}>
-            Create New
+            Create New <FiPlus size={18} />
           </Link>
         </div>
         <DivisionTable divisions={divisions} setDivisions={setDivisions} loading={loading}></DivisionTable>

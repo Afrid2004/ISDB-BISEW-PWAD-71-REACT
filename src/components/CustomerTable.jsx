@@ -4,6 +4,7 @@ import Alert from "react-bootstrap/Alert";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { FiEdit, FiTrash2 } from "react-icons/fi";
 
 function CustomerTable({ customers, loading, setCustomers }) {
   const allCustomers = customers.data || [];
@@ -112,15 +113,15 @@ function CustomerTable({ customers, loading, setCustomers }) {
                   <div className="d-flex align-items-center gap-2">
                     <Link
                       to={`/customers/edit/${customer.id}`}
-                      className="btn btn-warning"
+                      className="btn btn-warning d-flex align-items-center gap-1"
                     >
-                      Edit
+                      < FiEdit /> Edit
                     </Link>
                     <button
                       onClick={() => handleDelete(customer.id)}
-                      className="btn btn-danger"
+                      className="btn btn-danger d-flex align-items-center gap-1"
                     >
-                      Delete
+                      <FiTrash2 /> Delete
                     </button>
                   </div>
                 </td>

@@ -3,6 +3,7 @@ import axios from "axios";
 import CustomerTable from "../components/CustomerTable";
 import { Link } from "react-router-dom";
 import BreadCrums from "../components/BreadCrums";
+import { FiPlus } from "react-icons/fi";
 
 const Customers = () => {
   const [customers, setCustomers] = useState([]);
@@ -34,7 +35,7 @@ const Customers = () => {
             </small>
           </div>
           <Link className="btn btn-success" to={"/customers/create"}>
-            Create New
+            Create New <FiPlus size={18} />
           </Link>
         </div>
         <CustomerTable customers={customers} setCustomers={setCustomers} loading={loading}></CustomerTable>

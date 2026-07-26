@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { formatDate } from "../utils/formateDate";
+import { FiEdit, FiTrash2 } from "react-icons/fi";
 
 function DivisionTable({ divisions, loading, setDivisions }) {
     const BASE_URL = import.meta.env.VITE_API_PHP_BASE_URL;
@@ -91,14 +92,16 @@ function DivisionTable({ divisions, loading, setDivisions }) {
                 <td>{formatDate(data.created_at)}</td>
                 <td>
                   <div className="d-flex gap-2 align-items-center">
-                    <Link to={`/divisions/edit/${data.id}`}>
-                      <button className="btn btn-warning">Edit</button>
+                    <Link to={`/divisions/edit/${data.id}`} className="text-decoration-none">
+                      <button className="btn btn-warning d-flex align-items-center gap-1"> 
+                        < FiEdit /> Edit
+                    </button>
                     </Link>
                     <button
                       onClick={() => handleDelete(data.id)}
-                      className="btn btn-danger"
+                      className="btn btn-danger  d-flex align-items-center gap-1"
                     >
-                      Delete
+                      <FiTrash2 /> Delete
                     </button>
                   </div>
                 </td>
