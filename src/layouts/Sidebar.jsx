@@ -14,6 +14,9 @@ function Sidebar() {
             <Link to={"/customers"} className="text-decoration-none">
               <div className="bg-hover px-3 py-2 text-light border border-dark">Customer CRUD</div>
             </Link>
+            <Link to={"/divisions"} className="text-decoration-none">
+              <div className="bg-hover px-3 py-2 text-light border border-dark">Division CRUD</div>
+            </Link>
           </div>
         </div>
       </div>

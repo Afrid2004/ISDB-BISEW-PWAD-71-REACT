@@ -12,6 +12,9 @@ import Users from "./pages/Users";
 import Customers from "./pages/Customers";
 import CustomerEdit from "./pages/CustomerEdit";
 import CustomerCreate from "./pages/CustomerCreate";
+import DivisionCreate from "./pages/divisions/create";
+import Division from "./pages/divisions";
+import DivisionEdit from "./pages/divisions/edit";
 
 function App() {
   return (
@@ -27,6 +30,9 @@ function App() {
             <Route path="/customers" element={<Customers />} />
             <Route path="/customers/edit/:id" element={<CustomerEdit />} />
             <Route path="/customers/create" element={<CustomerCreate />} />
+            <Route path="/divisions/" element={ <Division/> } />
+            <Route path="/divisions/create" element={ <DivisionCreate/> } />
+            <Route path="/divisions/edit/:id" element={ <DivisionEdit /> } />
           </Route>
         </Routes>
       </BrowserRouter>
